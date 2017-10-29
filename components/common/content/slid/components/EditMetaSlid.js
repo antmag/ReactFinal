@@ -35,6 +35,7 @@ class EditMetaSlid extends Component {
   render() {
     let display;
     const currentSlid=this.getSlid();
+    console.log(currentSlid)
     switch(this.props.displayMode){
       case "SHORT":
       display=(

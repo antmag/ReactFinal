@@ -38,7 +38,7 @@ class Comm{
     }
     
     loadContent(callback,callbackErr){
-     axios.get('/resources_list')
+     axios.get('/contents')
        .then(function (data) {
          //console.log("raw content data");
          //console.log(data.data);
@@ -49,7 +49,6 @@ class Comm{
              contentMap[c_obj.id]=c_obj;
             // console.log(c_obj);
          }
-         
             callback(contentMap);
         })
         .catch(function (error) {
@@ -59,6 +58,7 @@ class Comm{
     }
     
     savPres(presJson, callbackErr){
+        console.log(presJson);
         axios.post('/savePres', presJson)
         .then(function (response) {
                 console.log(response);
@@ -126,6 +126,8 @@ class Comm{
      
     play(presUUID){
         this.socket.emit('slidEvent', {'CMD':"START",'PRES_ID':presUUID});
+        console.log("play");
+        console.log(presUUID);
     }
     
     pause(){
@@ -138,6 +140,32 @@ class Comm{
     
     end(){
         this.socket.emit('slidEvent', {'CMD':"END"});
+    }
+
+    switchNav(button,id){
+        console.log(button);
+        switch(button) {
+    case "button_fw":
+        this.forward();
+        break;
+    case "button_ffw":
+        this.end();
+        break;
+    case "button_fbw":
+        this.begin();
+        break;
+    case "button_fw":
+        this.forward();
+        break;
+    case "button_stop":
+        this.pause();
+        break;
+    case "button_play":
+        this.play(id);
+        break;
+    default:
+
+}
     }
 
 }

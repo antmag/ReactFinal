@@ -34,9 +34,11 @@ class Presentation extends Component {
 getAllSlide(){
      let array_render=[];
       var maMap=this.props.contentMap;
-
+      console.log(maMap);
+      console.log(this.props.presa.slidArray);
+  if(this.props.presa.slidArray.length != undefined){
       for(var i=0; i<this.props.presa.slidArray.length; i++){
-        console.log(this.props.presa.slidArray[i]);
+        console.log(this.props.presa.slidArray[i].content_id);
         array_render.push(
             <Slid
               key={this.props.presa.slidArray[i].id} 
@@ -49,6 +51,7 @@ getAllSlide(){
             />
 
             );
+      }
       }
      return array_render;
  }
@@ -80,7 +83,7 @@ getAllSlide(){
         id:id,
         title:"Title",
         txt:"Text",
-        content_id:"1",
+        content_id:"62cf58dd-ecb1-495a-899c-b7c633fa1df7",
     }
     this.props.dispatch(updateSlid(tmpSlid));
     this.props.dispatch(updateCurrentSlid(tmpSlid));
@@ -89,7 +92,7 @@ getAllSlide(){
     slidArray_trans[this.props.presa.slidArray.length].id=id;
     slidArray_trans[this.props.presa.slidArray.length].title="Title";
     slidArray_trans[this.props.presa.slidArray.length].txt="Text";
-    slidArray_trans[this.props.presa.slidArray.length].content_id="1";
+    slidArray_trans[this.props.presa.slidArray.length].content_id="62cf58dd-ecb1-495a-899c-b7c633fa1df7";
     const tmpPres={
       id:this.props.presa.id,
       title:this.props.presa.title,

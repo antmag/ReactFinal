@@ -10,7 +10,7 @@ const updateModelReducer= (state={presentation:{},content_map:{}},action) => {
 		 		const newState2={presentation:action.obj,content_map:state.content_map};
 		 		return newState2;
 		 case 'UPDATE_CONTENT_MAP':
-		 		const newState3={content_map:action.obj,presentation:state.presentation};
+		 		const newState3={presentation:state.presentation,content_map:action.obj};
 		 		return newState3;
 		 case 'ADD_CONTENT':
 		 		const newState4={presentation:state.presentation,content_map:action.obj};

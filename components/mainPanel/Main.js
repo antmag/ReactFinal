@@ -28,22 +28,28 @@ export default class Main extends React.Component{
 		 		contentMap:contentMapTmp,
 		 		current_pres:presTmp
 		 }
-		 console.log(presTmp);
+		 this.loadContentUpdate=this.loadContentUpdate.bind(this);
+		 this.loadPresUpdate=this.loadPresUpdate.bind(this);
+		 this.callbackErr=this.callbackErr.bind(this);
+
 		 store.dispatch(updatePresentation(presTmp));
 		 store.dispatch(updateContentMap(contentMapTmp));
 		 store.dispatch(updateCurrentSlid(presTmp.slidArray[0]));
+
+
+
 		 let unsubscribe = store.subscribe(() =>{
-		 	//this.comm.switchNav(store.getState().commandReducer.switch_nav,store.getState().updateModelReducer.presentation.id);
+
+		 	this.comm.switchNav(store.getState().commandReducer.switch_nav,store.getState().updateModelReducer.presentation.id);
 		 	if(store.getState().commandReducer.to_do == "SAVE_CMD"){
-		 		this.comm.savePres(
-		 				store.getState().updateModelReducer.presentation,
-		 				this.callbackErr
-		 		);
+		 		console.log(store.getState().updateModelReducer.presentation);
+		 		this.comm.savPres(store.getState().updateModelReducer.presentation,this.callbackErr);
 		 	}
 		 });
-		// this.comm.loadContent(this.loadContentUpdate,this.callbackErr);
-		// this.comm.loadPres(0,this.loadPresUpdate,this.callbackErr);
-		 //this.comm.socketConnection(this.state.uuid);
+
+		this.comm.loadPres(0,this.loadPresUpdate,this.callbackErr);
+		this.comm.loadContent(this.loadContentUpdate,this.callbackErr);
+		this.comm.socketConnection(this.state.uuid);
 
 	 }
 
@@ -53,11 +59,13 @@ loadContentUpdate(data){
 
 loadPresUpdate(data){
 	store.dispatch(updatePresentation(data));
+	store.dispatch(updateCurrentSlid(data.slidArray[0]));
 }
 
 callbackErr(msg){
 	console.error(msg);
 }
+
 	 render() {
 	 	return (
 	 		<Provider store={store} >
@@ -77,7 +85,7 @@ callbackErr(msg){
 						</div>
 				 	</div>
 				 	</div>
-				 	
+
 				</div>
 			</Provider>
 	 	);

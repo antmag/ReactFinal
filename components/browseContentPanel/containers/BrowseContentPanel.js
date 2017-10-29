@@ -21,7 +21,7 @@ getAllRobotRender(){
     console.log(this.props.contentMap["1"]);
     var maMap=this.props.contentMap;
     Object.keys(this.props.contentMap).forEach(function(k, v){
-
+        console.log(maMap[k]);
         array_render.push(
             <Content
                 key={maMap[k].id} 
